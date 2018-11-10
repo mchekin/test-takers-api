@@ -22,4 +22,10 @@ class UserJsonRepository implements UserRepositoryInterface
         // TODO: Implement get() method.
         return [];
     }
+
+    public function firstOrFail(int $userId): array
+    {
+        // TODO: Implement firstOrFail() method.
+        return [];
+    }
 }

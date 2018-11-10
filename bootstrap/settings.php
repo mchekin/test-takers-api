@@ -23,7 +23,7 @@ return [
                 'path' => env('JSON_DATA_FILE_PATH', __DIR__ . '/../database/testtakers.json'),
             ],
             'csv' => [
-                'path' => env('CSV_DATA_FILE_PATH', __DIR__ . '/../database/testtakers.json'),
+                'path' => env('CSV_DATA_FILE_PATH', __DIR__ . '/../database/testtakers.csv'),
             ],
         ],
     ],
