@@ -6,6 +6,7 @@ namespace TestTakersApi\Controllers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use TestTakersApi\Requests\GetUserListRequest;
 use TestTakersApi\Services\UserService;
 
 class UserController
@@ -22,6 +23,8 @@ class UserController
 
     public function index(Request $request, Response $response)
     {
+        $this->service->get(GetUserListRequest::fromRequest($request));
+
         $users = [];
 
         return $response->withStatus(200)->withJson($users);

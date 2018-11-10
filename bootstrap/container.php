@@ -1,15 +1,53 @@
 <?php
 
+use Illuminate\Database\Capsule\Manager;
 use Psr\Container\ContainerInterface;
 use TestTakersApi\Controllers\UserController;
+use TestTakersApi\Repositories\UserCSVRepository;
+use TestTakersApi\Repositories\UserJsonRepository;
 use TestTakersApi\Repositories\UserMySqlRepository;
 use TestTakersApi\Repositories\UserRepositoryInterface;
 use TestTakersApi\Services\UserService;
 
 $container = $app->getContainer();
 
-$container[UserRepositoryInterface::class] = function () {
-    return new UserMySQLRepository();
+$container[Manager::class] = function (ContainerInterface $container) {
+
+
+};
+
+$container[UserRepositoryInterface::class] = function (ContainerInterface $container) {
+
+    switch ($container->get('settings')['db']['default'])
+    {
+        case 'csv':
+            return $container[UserCSVRepository::class];
+        case 'json':
+            return $container[UserJsonRepository::class];
+        default:
+            return $container[UserMySqlRepository::class];
+    }
+};
+
+$container[UserMySqlRepository::class] = function (ContainerInterface $container) {
+
+    $manager = new Manager();
+
+    $manager->addConnection($container->get('settings')['db']['mysql']);
+    $manager->setAsGlobal();
+    $manager->bootEloquent();
+
+    return new UserMySqlRepository($manager);
+};
+
+$container[UserCSVRepository::class] = function (ContainerInterface $container) {
+
+    return new UserCSVRepository($container->get('settings')['db']['csv']);
+};
+
+$container[UserJsonRepository::class] = function (ContainerInterface $container) {
+
+    return new UserJsonRepository($container->get('settings')['db']['json']);
 };
 
 $container[UserService::class] = function (ContainerInterface $container) {

@@ -5,6 +5,7 @@ namespace TestTakersApi\Services;
 
 
 use TestTakersApi\Repositories\UserRepositoryInterface;
+use TestTakersApi\Requests\GetUserListRequest;
 
 class UserService
 {
@@ -16,5 +17,10 @@ class UserService
     public function __construct(UserRepositoryInterface $repository)
     {
         $this->repository = $repository;
+    }
+
+    public function get(GetUserListRequest $request)
+    {
+        $this->repository->get();
     }
 }
