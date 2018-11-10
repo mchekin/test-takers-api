@@ -21,6 +21,7 @@ class UserMySqlRepository implements UserRepositoryInterface
     public function get(int $limit, int $offset, array $filters): array
     {
         return $this->connection->table('users')
+            ->orderBy('id')
             ->limit($limit)
             ->offset($offset)
             ->where($filters)
