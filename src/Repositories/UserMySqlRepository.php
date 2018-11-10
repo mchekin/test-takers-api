@@ -4,7 +4,7 @@
 namespace TestTakersApi\Repositories;
 
 use Illuminate\Database\Connection;
-use TestTakersApi\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserMySqlRepository implements UserRepositoryInterface
 {
@@ -20,18 +20,28 @@ class UserMySqlRepository implements UserRepositoryInterface
 
     public function get(int $limit, int $offset, array $filters): array
     {
-        $usersData =  $this->connection->table('users')
+        return $this->connection->table('users')
             ->limit($limit)
             ->offset($offset)
             ->where($filters)
             ->get()->toArray();
+    }
 
-        $users = [];
+    /**
+     * @param int $userId
+     * @return array
+     *
+     * @throws ModelNotFoundException
+     */
+    public function firstOrFail(int $userId): array
+    {
+        $user = $this->connection->table('users')->find($userId);
 
-        foreach ($usersData as $data) {
-            $users[] = new User((array)$data);
+        if($user === null)
+        {
+            throw new ModelNotFoundException('User not found with id '. $userId);
         }
 
-        return $users;
+        return (array)$user;
     }
 }

@@ -27,4 +27,11 @@ class UserController
 
         return $response->withStatus(200)->withJson($users);
     }
+
+    public function show(Request $request, Response $response)
+    {
+        $users = $this->service->firstOrFail($request->getAttribute('userId'));
+
+        return $response->withStatus(200)->withJson($users);
+    }
 }

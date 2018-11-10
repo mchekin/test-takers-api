@@ -8,11 +8,6 @@ use JsonSerializable;
 
 class User implements JsonSerializable
 {
-    /**
-     * @var array
-     */
-    private $data;
-
     const ALLOWED_OUTPUT_FIELDS = [
         'id',
         'login',
@@ -24,6 +19,11 @@ class User implements JsonSerializable
         'picture',
         'address',
     ];
+
+    /**
+     * @var array
+     */
+    private $data;
 
     public function __construct(array $data)
     {

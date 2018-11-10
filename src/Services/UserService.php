@@ -4,6 +4,7 @@
 namespace TestTakersApi\Services;
 
 
+use TestTakersApi\Models\User;
 use TestTakersApi\Repositories\UserRepositoryInterface;
 use TestTakersApi\Requests\GetUserListRequest;
 
@@ -21,6 +22,19 @@ class UserService
 
     public function get(GetUserListRequest $request): array
     {
-        return $this->repository->get($request->getLimit(), $request->getOffset(), $request->getFilters());
+        $usersData = $this->repository->get($request->getLimit(), $request->getOffset(), $request->getFilters());
+
+        $users = [];
+
+        foreach ($usersData as $data) {
+            $users[] = new User((array)$data);
+        }
+
+        return $users;
+    }
+
+    public function firstOrFail(int $userId)
+    {
+        return new User($this->repository->firstOrFail($userId));
     }
 }
