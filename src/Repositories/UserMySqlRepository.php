@@ -4,6 +4,7 @@
 namespace TestTakersApi\Repositories;
 
 use Illuminate\Database\Connection;
+use TestTakersApi\Models\User;
 
 class UserMySqlRepository implements UserRepositoryInterface
 {
@@ -25,6 +26,12 @@ class UserMySqlRepository implements UserRepositoryInterface
             ->where($filters)
             ->get()->toArray();
 
-        return $usersData;
+        $users = [];
+
+        foreach ($usersData as $data) {
+            $users[] = new User((array)$data);
+        }
+
+        return $users;
     }
 }
