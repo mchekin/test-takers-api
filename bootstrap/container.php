@@ -34,10 +34,9 @@ $container[UserMySqlRepository::class] = function (ContainerInterface $container
     $manager = new Manager();
 
     $manager->addConnection($container->get('settings')['db']['mysql']);
-    $manager->setAsGlobal();
     $manager->bootEloquent();
 
-    return new UserMySqlRepository($manager);
+    return new UserMySqlRepository($manager->getConnection());
 };
 
 $container[UserCSVRepository::class] = function (ContainerInterface $container) {

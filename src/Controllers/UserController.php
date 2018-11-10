@@ -23,9 +23,7 @@ class UserController
 
     public function index(Request $request, Response $response)
     {
-        $this->service->get(GetUserListRequest::fromRequest($request));
-
-        $users = [];
+        $users = $this->service->get(GetUserListRequest::fromRequest($request));
 
         return $response->withStatus(200)->withJson($users);
     }

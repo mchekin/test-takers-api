@@ -3,18 +3,28 @@
 
 namespace TestTakersApi\Repositories;
 
-
-use Illuminate\Database\Capsule\Manager;
+use Illuminate\Database\Connection;
 
 class UserMySqlRepository implements UserRepositoryInterface
 {
     /**
-     * @var Manager
+     * @var Connection
      */
-    private $manager;
+    private $connection;
 
-    public function __construct(Manager $manager)
+    public function __construct(Connection $connection)
     {
-        $this->manager = $manager;
+        $this->connection = $connection;
+    }
+
+    public function get(int $limit, int $offset, array $filters): array
+    {
+        $usersData =  $this->connection->table('users')
+            ->limit($limit)
+            ->offset($offset)
+            ->where($filters)
+            ->get()->toArray();
+
+        return $usersData;
     }
 }

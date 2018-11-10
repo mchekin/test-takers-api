@@ -16,4 +16,10 @@ class UserJsonRepository implements UserRepositoryInterface
 
         $this->settings = $settings;
     }
+
+    public function get(int $limit, int $offset, array $filters): array
+    {
+        // TODO: Implement get() method.
+        return [];
+    }
 }

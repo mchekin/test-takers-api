@@ -19,8 +19,8 @@ class UserService
         $this->repository = $repository;
     }
 
-    public function get(GetUserListRequest $request)
+    public function get(GetUserListRequest $request): array
     {
-        $this->repository->get();
+        return $this->repository->get($request->getLimit(), $request->getOffset(), $request->getFilters());
     }
 }
