@@ -11,6 +11,8 @@ use League\Csv\Statement;
 
 class UserCSVRepository implements UserRepositoryInterface
 {
+    use PrependIdToRecordTrait;
+
     private $reader;
 
     /**
@@ -50,7 +52,7 @@ class UserCSVRepository implements UserRepositoryInterface
 
         $users = iterator_to_array($records->getRecords());
 
-        return $this->addIds($users);
+        return $this->prependIds($users);
     }
 
     /**
@@ -71,23 +73,5 @@ class UserCSVRepository implements UserRepositoryInterface
         }
 
         return $this->prependId($user, $userId);
-    }
-
-    private function addIds(array $users): array
-    {
-        $keys = array_keys($users);
-
-        return array_map(function ($id) use ($users) {
-
-            return $this->prependId($users[$id], $id);
-
-        }, $keys);
-    }
-
-    private function prependId(array $user, int $id): array
-    {
-        return array_merge([
-            "id" => $id
-        ], $user);
     }
 }

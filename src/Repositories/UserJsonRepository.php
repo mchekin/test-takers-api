@@ -4,28 +4,49 @@
 namespace TestTakersApi\Repositories;
 
 
+use ArrayIterator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 class UserJsonRepository implements UserRepositoryInterface
 {
+    use PrependIdToRecordTrait;
+    use FilterRecordsTrait;
+
     /**
-     * @var array
+     * @var string
      */
-    private $settings;
+    private $path;
 
     public function __construct(array $settings)
     {
-
-        $this->settings = $settings;
+        $this->path = $settings['path'];
     }
 
     public function get(int $limit, int $offset, array $filters): array
     {
-        // TODO: Implement get() method.
-        return [];
+        $usersData = json_decode(file_get_contents($this->path), true);
+
+        $usersIterator = new ArrayIterator($usersData);
+
+        $usersIterator = $this->filterMany($usersIterator, $filters);
+
+        $users = iterator_to_array($usersIterator);
+
+        $users = array_slice($users, $offset, $limit, true);
+
+        return $this->prependIds($users, 1);
     }
 
     public function firstOrFail(int $userId): array
     {
-        // TODO: Implement firstOrFail() method.
-        return [];
+        $usersData = json_decode(file_get_contents($this->path), true);
+
+        $user = $usersData[$userId-1] ?? null;
+
+        if (empty($user)) {
+            throw new ModelNotFoundException('User not found with id ' . $userId);
+        }
+
+        return $this->prependId($user, $userId);
     }
 }
