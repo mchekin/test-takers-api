@@ -6,6 +6,11 @@ USE `test_takers`;
 
 DROP TABLE IF EXISTS `test_takers` ;
 
+# Since many of the columns are filterable by the application, in a live application we would need to consider indexing
+# all or many of those columns and maybe some popular combinations of them. Or conversely limiting filtering.
+# Indexing would provide much quicker query execution when selecting records, but also would force reindexing on data insert and update,
+# which would make insert and update operation slower. So what should be determined is whether this application is
+# "read" heavy or "write" heavy.
 CREATE TABLE `users`(
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `login`     VARCHAR(255) NOT NULL,
