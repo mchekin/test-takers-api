@@ -20,7 +20,7 @@
 
 <a name="librariesused"></a>
 ### Libraries Used
-All of the source code have been written in the repository was written from scratch.
+All of the source code in the repository was written from scratch.
 But a number of libraries are used through Composer:
 
 - `slim/slim` as basic web micro-framework
