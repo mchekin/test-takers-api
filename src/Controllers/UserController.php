@@ -7,6 +7,7 @@ namespace TestTakersApi\Controllers;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use TestTakersApi\Requests\GetUserListRequest;
+use TestTakersApi\Requests\GetUserRequest;
 use TestTakersApi\Services\UserService;
 
 class UserController
@@ -30,7 +31,7 @@ class UserController
 
     public function show(Request $request, Response $response)
     {
-        $users = $this->service->firstOrFail($request->getAttribute('userId'));
+        $users = $this->service->firstOrFail(GetUserRequest::fromRequest($request));
 
         return $response->withStatus(200)->withJson($users);
     }

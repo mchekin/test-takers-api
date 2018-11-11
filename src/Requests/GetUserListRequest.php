@@ -38,14 +38,15 @@ class GetUserListRequest
     {
         $filters = array_intersect_key($request->getParams(), array_flip(self::ALLOWED_FILTERS));
 
-        return new self(
-            $request->getParam('limit'),
-            $request->getParam('offset'),
-            $filters
-        );
+        $restrictedLimit = min($request->getParam('limit'), self::MAX_RECORDS_LIMIT);
+        $limit = $restrictedLimit ?? self::MAX_RECORDS_LIMIT;
+
+        $offset = max($request->getParam('offset'), 0);
+
+        return new self((int)$limit, (int)$offset, $filters);
     }
 
-    public function __construct($limit, $offset, array $filters)
+    private function __construct(int $limit, int $offset, array $filters)
     {
         $this->limit = $limit;
         $this->offset = $offset;
@@ -57,7 +58,7 @@ class GetUserListRequest
      */
     public function getLimit(): int
     {
-        return min($this->limit, self::MAX_RECORDS_LIMIT) ?? self::MAX_RECORDS_LIMIT;
+        return $this->limit;
     }
 
     /**
@@ -65,7 +66,7 @@ class GetUserListRequest
      */
     public function getOffset(): int
     {
-        return (int)$this->offset;
+        return $this->offset;
     }
 
     /**

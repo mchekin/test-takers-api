@@ -7,6 +7,7 @@ namespace TestTakersApi\Services;
 use TestTakersApi\Models\User;
 use TestTakersApi\Repositories\UserRepositoryInterface;
 use TestTakersApi\Requests\GetUserListRequest;
+use TestTakersApi\Requests\GetUserRequest;
 
 class UserService
 {
@@ -33,8 +34,8 @@ class UserService
         return $users;
     }
 
-    public function firstOrFail(int $userId)
+    public function firstOrFail(GetUserRequest $request)
     {
-        return new User($this->repository->firstOrFail($userId));
+        return new User($this->repository->firstOrFail($request->getUserId()));
     }
 }

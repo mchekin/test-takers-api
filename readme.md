@@ -80,5 +80,5 @@ and seed the database with the records identical to the ones in `testakers.csv`.
 <a name="thingstobedone"></a>
 ### Things To Be Done
 
-- Unit test and Functional tests.
-- Input Validation.
+- Unit tests and Functional tests.
+- Additional Input Validation.
