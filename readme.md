@@ -8,7 +8,8 @@
 4. [Running in local environment](#runningindevelopmentenvironment)
 5. [Data Source Settings](#datasourcesettings)
 6. [Setting Up MySQL as Data Source](#settingupmysqlasdatasource)
-7. [Things To Be Done](#thingstobedone)
+7. [Supported Routes](#supportedroutes)
+8. [Things To Be Done](#thingstobedone)
 
 <a name="requirements"></a>
 ### Requirements
@@ -77,6 +78,36 @@ In order to successfully `work` with `mysql` database connection you need a runn
 MySQL script located in `/database/mysql` should be applied to the database in order to create the schema 
 and seed the database with the records identical to the ones in `testakers.csv`.
 
+<a name="supportedroutes"></a>
+### Supported Routes
+
+- Getting Users list:
+
+    
+    /v1/users?offset={{offset}}&limit={{limit}}&{{filterKey}}={{value}}
+    
+where `{{filterValue}}` could be one of the following 
+    
+    login, 
+    title,
+    lastname,
+    firstname',
+    gender',
+    email,
+    
+Example:
+
+    /v1/users?limit=10&offset=1&gender=male
+
+- Getting specific User by id:
+
+    
+    /v1/users/{{userId}}
+    
+Example:
+
+    /v1/users/93
+    
 <a name="thingstobedone"></a>
 ### Things To Be Done
 
