@@ -84,16 +84,16 @@ and seed the database with the records identical to the ones in `testakers.csv`.
 - Getting Users list:
 
     
-    /v1/users?offset={{offset}}&limit={{limit}}&{{filterKey}}={{value}}
+    /v1/users?offset={{offset}}&limit={{limit}}&{{filter}}={{value}}
     
-where `{{filterValue}}` could be one of the following 
+where `{{filter}}` could be one of the following 
     
-    login, 
-    title,
-    lastname,
-    firstname',
-    gender',
-    email,
+    login
+    title
+    lastname
+    firstname
+    gender
+    email
     
 Example:
 
