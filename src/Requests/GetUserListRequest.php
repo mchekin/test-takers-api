@@ -8,6 +8,17 @@ use Slim\Http\Request;
 
 class GetUserListRequest
 {
+    const MAX_RECORDS_LIMIT = 100;
+
+    const ALLOWED_FILTERS = [
+        'login',
+        'title',
+        'lastname',
+        'firstname',
+        'gender',
+        'email',
+    ];
+
     /**
      * @var int
      */
@@ -22,15 +33,6 @@ class GetUserListRequest
      * @var array
      */
     private $filters;
-
-    const ALLOWED_FILTERS = [
-        'login',
-        'title',
-        'lastname',
-        'firstname',
-        'gender',
-        'email',
-    ];
 
     public static function fromRequest(Request $request)
     {
@@ -55,7 +57,7 @@ class GetUserListRequest
      */
     public function getLimit(): int
     {
-        return $this->limit;
+        return min($this->limit, self::MAX_RECORDS_LIMIT) ?? self::MAX_RECORDS_LIMIT;
     }
 
     /**
@@ -63,7 +65,7 @@ class GetUserListRequest
      */
     public function getOffset(): int
     {
-        return $this->offset;
+        return (int)$this->offset;
     }
 
     /**
