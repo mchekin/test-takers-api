@@ -4,7 +4,7 @@ return [
     'settings' => [
         'displayErrorDetails' => env('DISPLAY_ERROR_DETAILS', false),
         'db' => [
-            'default'  => env('DB_CONNECTION', 'mysql'),
+            'default'  => env('DB_CONNECTION', 'csv'),
             'mysql' => [
                 'driver' => 'mysql',
                 'host' => env('DB_HOST', '127.0.0.1'),
