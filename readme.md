@@ -81,10 +81,7 @@ and seed the database with the records identical to the ones in `testakers.csv`.
 <a name="supportedroutes"></a>
 ### Supported Routes
 
-- Getting Users list:
-
-    
-    /v1/users?offset={{offset}}&limit={{limit}}&{{filter}}={{value}}
+- Getting Users list: `/v1/users?offset={{offset}}&limit={{limit}}&{{filter}}={{value}}`
     
 where `{{filter}}` could be one of the following 
     
@@ -99,10 +96,7 @@ Example:
 
     /v1/users?limit=10&offset=1&gender=male
 
-- Getting specific User by id:
-
-    
-    /v1/users/{{userId}}
+- Getting specific User by id: `/v1/users/{{userId}}`
     
 Example:
 
