@@ -1,5 +1,4 @@
-## Online Role Playing Game
-
+## Test Taker coding exercise
 
 ### Table of Contents
 
